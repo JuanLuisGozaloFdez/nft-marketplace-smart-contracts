@@ -8,3 +8,4 @@ else
     echo "Error en la compilación"
     exit 1
 fi
+echo ""

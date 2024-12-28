@@ -1,3 +1,4 @@
+/** Hardhat project configuration */
 require("@nomicfoundation/hardhat-toolbox");
 require("dotenv").config();
 
