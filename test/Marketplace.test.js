@@ -2,29 +2,68 @@ const { expect } = require("chai");
 const { ethers } = require("hardhat");
 
 describe("Marketplace", function () {
-  let NFT;
   let nft;
-  let Marketplace;
   let marketplace;
   let owner;
   let seller;
   let buyer;
 
+  function getSelectors(contract) {
+    const signatures = Object.keys(contract.interface.functions);
+    return signatures.map((sig) => contract.interface.getSighash(sig));
+  }
+
   beforeEach(async function () {
-    NFT = await ethers.getContractFactory("MyNFT");
-    Marketplace = await ethers.getContractFactory("Marketplace");
     [owner, seller, buyer] = await ethers.getSigners();
 
-    nft = await NFT.deploy();
-    await nft.deployed();
+    const DiamondCutFacet = await ethers.getContractFactory('DiamondCutFacet');
+    const diamondCutFacet = await DiamondCutFacet.deploy();
+    await diamondCutFacet.deployed();
 
-    marketplace = await Marketplace.deploy();
-    await marketplace.deployed();
+    const diamondCutSelectors = getSelectors(diamondCutFacet);
+
+    const Diamond = await ethers.getContractFactory('Diamond');
+    const diamond = await Diamond.deploy(owner.address, diamondCutFacet.address, diamondCutSelectors);
+    await diamond.deployed();
+
+    const DiamondLoupeFacet = await ethers.getContractFactory('DiamondLoupeFacet');
+    const diamondLoupeFacet = await DiamondLoupeFacet.deploy();
+    await diamondLoupeFacet.deployed();
+
+    const OwnershipFacet = await ethers.getContractFactory('OwnershipFacet');
+    const ownershipFacet = await OwnershipFacet.deploy();
+    await ownershipFacet.deployed();
+
+    const NFTFacet = await ethers.getContractFactory('NFTFacet');
+    const nftFacet = await NFTFacet.deploy();
+    await nftFacet.deployed();
+
+    const MarketplaceFacet = await ethers.getContractFactory('MarketplaceFacet');
+    const marketplaceFacet = await MarketplaceFacet.deploy();
+    await marketplaceFacet.deployed();
+
+    const FacetCutAction = { Add: 0, Replace: 1, Remove: 2 };
+    const cut = [
+      { facetAddress: diamondLoupeFacet.address, action: FacetCutAction.Add, functionSelectors: getSelectors(diamondLoupeFacet) },
+      { facetAddress: ownershipFacet.address, action: FacetCutAction.Add, functionSelectors: getSelectors(ownershipFacet) },
+      { facetAddress: nftFacet.address, action: FacetCutAction.Add, functionSelectors: getSelectors(nftFacet) },
+      { facetAddress: marketplaceFacet.address, action: FacetCutAction.Add, functionSelectors: getSelectors(marketplaceFacet) }
+    ];
+
+    const diamondCut = await ethers.getContractAt('DiamondCutFacet', diamond.address);
+    await diamondCut.diamondCut(cut, ethers.constants.AddressZero, '0x');
+
+    nft = await ethers.getContractAt('NFTFacet', diamond.address);
+    marketplace = await ethers.getContractAt('MarketplaceFacet', diamond.address);
+
+    // initialize storage
+    await nft.initNFT('MyNFT', 'MNFT', 10000);
+    await marketplace.initMarketplace(25);
 
     // Mint an NFT for the seller
     await nft.mintNFT(seller.address, "https://example.com/token/1");
-    // Approve marketplace to manage the NFT
-    await nft.connect(seller).setApprovalForAll(marketplace.address, true);
+    // Approve marketplace (diamond address) to manage the NFT
+    await nft.connect(seller).setApprovalForAll(diamond.address, true);
   });
 
   describe("Listing", function () {
@@ -89,7 +128,7 @@ describe("Marketplace", function () {
 
     it("Should not allow non-owner to update fee", async function () {
       await expect(marketplace.connect(buyer).updateFee(50)).to.be.revertedWith(
-        "Ownable: caller is not the owner"
+        "LibDiamond: Must be contract owner"
       );
     });
   });

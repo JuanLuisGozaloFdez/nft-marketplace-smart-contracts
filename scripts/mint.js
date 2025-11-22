@@ -7,7 +7,7 @@ async function main() {
       address: {
         type: "string",
         short: "a",
-        description: "NFT contract address"
+        description: "Diamond contract address (contains NFTFacet)"
       },
       uri: {
         type: "string",
@@ -19,23 +19,24 @@ async function main() {
 
   const [owner] = await hre.ethers.getSigners();
 
-  // Get the contract instance
-  const MyNFT = await hre.ethers.getContractFactory("MyNFT");
-  const contractAddress = values.address || "YOUR_DEPLOYED_NFT_CONTRACT_ADDRESS";
-  const myNFT = await MyNFT.attach(contractAddress);
+  // Get the contract instance (NFTFacet via Diamond address)
+  const contractAddress = values.address || "YOUR_DIAMOND_ADDRESS";
+  const nft = await hre.ethers.getContractAt('NFTFacet', contractAddress);
 
   console.log("Minting NFT from:", owner.address);
 
   // Mint a new NFT
   const tokenURI = values.uri || "https://example.com/nft/1";
-  const tx = await myNFT.mintNFT(owner.address, tokenURI);
-  await tx.wait();
+  const tx = await nft.mintNFT(owner.address, tokenURI);
+  const receipt = await tx.wait();
 
-  console.log("NFT minted successfully");
-
-  // Get the latest token ID
-  const latestTokenId = await myNFT.tokenIds();
-  console.log("Minted NFT ID:", latestTokenId.toString());
+  // Parse event to get tokenId
+  const event = receipt.events.find((e) => e.event === 'NFTMinted');
+  if (event) {
+    console.log('NFT minted successfully, tokenId:', event.args[0].toString());
+  } else {
+    console.log('NFT minted (no event parsed)');
+  }
 }
 
 main()

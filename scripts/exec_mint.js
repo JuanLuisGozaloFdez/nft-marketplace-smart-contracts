@@ -1,1 +1,1 @@
-npx hardhat run scripts/mint.js --network <your-network> -- -a <dir-contrato> -u <URI>
+npx hardhat run scripts/mint.js --network <your-network> -- -a <diamond-address> -u <URI>
