@@ -1,5 +1,6 @@
 /** Hardhat project configuration */
 require("@nomicfoundation/hardhat-toolbox");
+require('solidity-coverage');
 require("dotenv").config();
 
 const INFURA_API_KEY = process.env.INFURA_API_KEY;

@@ -1,0 +1,878 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "/home/jlg/nft/nft-marketplace-smart-contracts/contracts/Diamond.sol": {
+      "lastModificationDate": 1763840408073,
+      "contentHash": "436e98b86dd9977ed2295117381da74b",
+      "sourceName": "contracts/Diamond.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": false
+          }
+        }
+      },
+      "imports": [
+        "./LibDiamond.sol",
+        "./interfaces/IDiamondCut.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "Diamond"
+      ]
+    },
+    "/home/jlg/nft/nft-marketplace-smart-contracts/contracts/interfaces/IDiamondCut.sol": {
+      "lastModificationDate": 1763840408077,
+      "contentHash": "34f448fe4aaf673eee4aa42b561ddd48",
+      "sourceName": "contracts/interfaces/IDiamondCut.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": false
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "IDiamondCut"
+      ]
+    },
+    "/home/jlg/nft/nft-marketplace-smart-contracts/contracts/LibDiamond.sol": {
+      "lastModificationDate": 1763840408073,
+      "contentHash": "2fb6137849f430ce555755ddce74b3a2",
+      "sourceName": "contracts/LibDiamond.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": false
+          }
+        }
+      },
+      "imports": [
+        "./interfaces/IDiamondCut.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "LibDiamond"
+      ]
+    },
+    "/home/jlg/nft/nft-marketplace-smart-contracts/contracts/facets/OwnershipFacet.sol": {
+      "lastModificationDate": 1763840408077,
+      "contentHash": "927e6e8ce485a2bdcdc29b905a5bfda0",
+      "sourceName": "contracts/facets/OwnershipFacet.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": false
+          }
+        }
+      },
+      "imports": [
+        "../LibDiamond.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "OwnershipFacet"
+      ]
+    },
+    "/home/jlg/nft/nft-marketplace-smart-contracts/contracts/facets/NFTFacet.sol": {
+      "lastModificationDate": 1763842649212,
+      "contentHash": "1fdd944b1e405822b7dc4bc6c3089b31",
+      "sourceName": "contracts/facets/NFTFacet.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": false
+          }
+        }
+      },
+      "imports": [
+        "../LibDiamond.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "LibNFT",
+        "NFTFacet"
+      ]
+    },
+    "/home/jlg/nft/nft-marketplace-smart-contracts/contracts/facets/MarketplaceFacet.sol": {
+      "lastModificationDate": 1763842557140,
+      "contentHash": "996024a1500daeb231b5f1dfd166a72a",
+      "sourceName": "contracts/facets/MarketplaceFacet.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": false
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC721/IERC721.sol",
+        "../LibDiamond.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "LibMarketplace",
+        "MarketplaceFacet"
+      ]
+    },
+    "/home/jlg/nft/nft-marketplace-smart-contracts/node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol": {
+      "lastModificationDate": 1763840701997,
+      "contentHash": "1fdc621cd6747e8985e11fc76ce74511",
+      "sourceName": "@openzeppelin/contracts/token/ERC721/IERC721.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": false
+          }
+        }
+      },
+      "imports": [
+        "../../utils/introspection/IERC165.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "IERC721"
+      ]
+    },
+    "/home/jlg/nft/nft-marketplace-smart-contracts/node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol": {
+      "lastModificationDate": 1763840701905,
+      "contentHash": "bf0119eb2a570f219729ff38b6cd1df8",
+      "sourceName": "@openzeppelin/contracts/utils/introspection/IERC165.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": false
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "IERC165"
+      ]
+    },
+    "/home/jlg/nft/nft-marketplace-smart-contracts/contracts/facets/DiamondLoupeFacet.sol": {
+      "lastModificationDate": 1763840408077,
+      "contentHash": "e5d7545e614bf50363b5cf237be23218",
+      "sourceName": "contracts/facets/DiamondLoupeFacet.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": false
+          }
+        }
+      },
+      "imports": [
+        "../interfaces/IDiamondLoupe.sol",
+        "../LibDiamond.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "DiamondLoupeFacet"
+      ]
+    },
+    "/home/jlg/nft/nft-marketplace-smart-contracts/contracts/interfaces/IDiamondLoupe.sol": {
+      "lastModificationDate": 1763840408077,
+      "contentHash": "436970543c96dbe28381fc8b066c2439",
+      "sourceName": "contracts/interfaces/IDiamondLoupe.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": false
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "IDiamondLoupe"
+      ]
+    },
+    "/home/jlg/nft/nft-marketplace-smart-contracts/contracts/facets/DiamondCutFacet.sol": {
+      "lastModificationDate": 1763840408077,
+      "contentHash": "1d533053a0b0009d373ad7aefeca50f2",
+      "sourceName": "contracts/facets/DiamondCutFacet.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": false
+          }
+        }
+      },
+      "imports": [
+        "../interfaces/IDiamondCut.sol",
+        "../LibDiamond.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "DiamondCutFacet"
+      ]
+    },
+    "/home/jlg/nft/nft-marketplace-smart-contracts/contracts/ERC721.sol": {
+      "lastModificationDate": 1763840889109,
+      "contentHash": "fc4fc1eecc8e3b5227db1ba7fcfa662a",
+      "sourceName": "contracts/ERC721.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": false
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [],
+      "artifacts": []
+    },
+    "/home/jlg/nft/nft-marketplace-smart-contracts/contracts/Marketplace.sol": {
+      "lastModificationDate": 1763840868237,
+      "contentHash": "e995610aa36ad4e771bf6dee51d20f5d",
+      "sourceName": "contracts/Marketplace.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": false
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [],
+      "artifacts": []
+    },
+    "/home/jlg/nft/nft-marketplace-smart-contracts/contracts/NFT.sol": {
+      "lastModificationDate": 1763840906589,
+      "contentHash": "1df3a440589bc52f76f477a0be732f81",
+      "sourceName": "contracts/NFT.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": false
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [],
+      "artifacts": []
+    },
+    "/home/jlg/nft/nft-marketplace-smart-contracts/contracts/legacy/Marketplace.sol": {
+      "lastModificationDate": 1763840770105,
+      "contentHash": "f3600df04bf49645a309b16ac66fdc25",
+      "sourceName": "contracts/legacy/Marketplace.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": false
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": []
+    },
+    "/home/jlg/nft/nft-marketplace-smart-contracts/contracts/TestRevertFacet.sol": {
+      "lastModificationDate": 1763843546144,
+      "contentHash": "0d74ec0b5af97b46b43c7ee30cdb4287",
+      "sourceName": "contracts/TestRevertFacet.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": false
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "TestRevertFacet"
+      ]
+    },
+    "/home/jlg/nft/nft-marketplace-smart-contracts/contracts/TestInitFacet.sol": {
+      "lastModificationDate": 1763843869204,
+      "contentHash": "9363ecfedc2c96592fc38020ff538c72",
+      "sourceName": "contracts/TestInitFacet.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": false
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "TestInitFacet"
+      ]
+    },
+    "/home/jlg/nft/nft-marketplace-smart-contracts/contracts/TestMultiFacet.sol": {
+      "lastModificationDate": 1763843934464,
+      "contentHash": "803dc16da888e1be42df39aacc685f46",
+      "sourceName": "contracts/TestMultiFacet.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": false
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "TestMultiFacet"
+      ]
+    },
+    "/home/jlg/nft/nft-marketplace-smart-contracts/contracts/TestPaymentFailers.sol": {
+      "lastModificationDate": 1763931519265,
+      "contentHash": "c158d07cb55f133012b2d79db8a23d37",
+      "sourceName": "contracts/TestPaymentFailers.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": false
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC721/IERC721.sol",
+        "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "BuyerReject",
+        "IMarketplace",
+        "OwnerAcceptLocal",
+        "OwnerReject",
+        "SellerReject"
+      ]
+    },
+    "/home/jlg/nft/nft-marketplace-smart-contracts/node_modules/@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol": {
+      "lastModificationDate": 1763840702025,
+      "contentHash": "729ce0904eb533489ffcc3bfe91237d4",
+      "sourceName": "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": false
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "IERC721Receiver"
+      ]
+    },
+    "/home/jlg/nft/nft-marketplace-smart-contracts/contracts/TestPaymentHelpers.sol": {
+      "lastModificationDate": 1763931218869,
+      "contentHash": "acf0cb2bcb676e46e1ce1ab10f971b8a",
+      "sourceName": "contracts/TestPaymentHelpers.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": false
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "OwnerAccept"
+      ]
+    },
+    "/home/jlg/nft/nft-marketplace-smart-contracts/contracts/mocks/MockMarket.sol": {
+      "lastModificationDate": 1764106708286,
+      "contentHash": "37b33695dd0a4421d41936453120c51e",
+      "sourceName": "contracts/mocks/MockMarket.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": false
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "MockMarket"
+      ]
+    }
+  }
+}

@@ -78,20 +78,7 @@ contract NFTFacet {
     }
 
     function transferFrom(address from, address to, uint256 tokenId) external {
-        require(to != address(0), "ERC721: transfer to the zero address");
-        LibNFT.NFTStorage storage ns = LibNFT.nftStorage();
-        address owner = ns.owners[tokenId];
-        require(owner == from, "ERC721: transfer from incorrect owner");
-        require(msg.sender == owner || ns.operatorApprovals[owner][msg.sender] || ns.tokenApprovals[tokenId] == msg.sender, "ERC721: caller is not token owner or approved");
-
-        // clear approval
-        if (ns.tokenApprovals[tokenId] != address(0)) {
-            ns.tokenApprovals[tokenId] = address(0);
-        }
-
-        ns.owners[tokenId] = to;
-        ns.balances[from]--;
-        ns.balances[to]++;
+        _transferFrom(msg.sender, from, to, tokenId);
     }
 
     function setApprovalForAll(address operator, bool approved) external {
@@ -116,8 +103,25 @@ contract NFTFacet {
     }
 
     function safeTransferFrom(address from, address to, uint256 tokenId) external {
-        // Minimal safeTransferFrom: forward to transferFrom (no ERC721Receiver checks)
-        transferFrom(from, to, tokenId);
+        // Minimal safeTransferFrom: call internal transfer to preserve msg.sender checks
+        _transferFrom(msg.sender, from, to, tokenId);
+    }
+
+    function _transferFrom(address operator, address from, address to, uint256 tokenId) internal {
+        require(to != address(0), "ERC721: transfer to the zero address");
+        LibNFT.NFTStorage storage ns = LibNFT.nftStorage();
+        address owner = ns.owners[tokenId];
+        require(owner == from, "ERC721: transfer from incorrect owner");
+        require(operator == owner || ns.operatorApprovals[owner][operator] || ns.tokenApprovals[tokenId] == operator, "ERC721: caller is not token owner or approved");
+
+        // clear approval
+        if (ns.tokenApprovals[tokenId] != address(0)) {
+            ns.tokenApprovals[tokenId] = address(0);
+        }
+
+        ns.owners[tokenId] = to;
+        ns.balances[from]--;
+        ns.balances[to]++;
     }
 
     function tokenIds() external view returns (uint256) {

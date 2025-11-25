@@ -16,6 +16,7 @@ library LibMarketplace {
         mapping(uint256 => Listing) listings;
         uint256 itemIds;
         uint256 fee; // fee numerator, denominator fixed to 1000
+        uint256 feesCollected; // accumulated fees held in contract until withdrawal
     }
 
     function marketplaceStorage() internal pure returns (MarketplaceStorage storage ms) {
@@ -47,7 +48,10 @@ contract MarketplaceFacet {
         require(price > 0, "Price must be greater than zero");
         IERC721 nft = IERC721(nftContract);
         require(nft.ownerOf(tokenId) == msg.sender, "Not the owner");
-        require(nft.isApprovedForAll(msg.sender, address(this)), "NFT not approved");
+        // Allow approval by specific token or operator approval
+        bool approvedForAll = nft.isApprovedForAll(msg.sender, address(this));
+        address approved = nft.getApproved(tokenId);
+        require(approvedForAll || approved == address(this), "NFT not approved");
 
         LibMarketplace.MarketplaceStorage storage ms = LibMarketplace.marketplaceStorage();
         ms.itemIds++;
@@ -62,24 +66,27 @@ contract MarketplaceFacet {
         LibMarketplace.Listing memory listing = ms.listings[itemId];
         require(listing.price > 0, "Item not listed");
         require(msg.value >= listing.price, "Insufficient payment");
-
+        // Remove listing first to avoid reentrancy on external calls
         delete ms.listings[itemId];
 
         uint256 feeAmount = (listing.price * ms.fee) / FEE_DENOMINATOR;
         uint256 sellerAmount = listing.price - feeAmount;
 
-        (bool feeSuccess, ) = payable(LibDiamond.contractOwner()).call{value: feeAmount}();
-        require(feeSuccess, "Fee transfer failed");
+        // Accumulate fee in contract balance accounting
+        ms.feesCollected += feeAmount;
 
-        (bool sellerSuccess, ) = payable(listing.seller).call{value: sellerAmount}();
+        // Pay seller
+        (bool sellerSuccess, ) = payable(listing.seller).call{value: sellerAmount}("");
         require(sellerSuccess, "Seller transfer failed");
 
+        // Transfer NFT to buyer
         IERC721(nftContract).safeTransferFrom(listing.seller, msg.sender, tokenId);
 
         emit ItemSold(itemId, nftContract, tokenId, listing.seller, msg.sender, listing.price);
 
+        // Refund overpayment if any
         if (msg.value > listing.price) {
-            (bool refundSuccess, ) = payable(msg.sender).call{value: msg.value - listing.price}();
+            (bool refundSuccess, ) = payable(msg.sender).call{value: msg.value - listing.price}("");
             require(refundSuccess, "Refund failed");
         }
     }
@@ -111,9 +118,11 @@ contract MarketplaceFacet {
 
     function withdrawFees() external {
         LibDiamond.enforceIsContractOwner();
-        uint256 amount = address(this).balance;
+        LibMarketplace.MarketplaceStorage storage ms = LibMarketplace.marketplaceStorage();
+        uint256 amount = ms.feesCollected;
         require(amount > 0, "No fees to withdraw");
-        (bool success, ) = payable(LibDiamond.contractOwner()).call{value: amount}();
+        ms.feesCollected = 0;
+        (bool success, ) = payable(LibDiamond.contractOwner()).call{value: amount}("");
         require(success, "Withdrawal failed");
         emit FeeWithdrawn(LibDiamond.contractOwner(), amount);
     }
