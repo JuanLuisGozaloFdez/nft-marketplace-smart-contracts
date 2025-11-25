@@ -240,3 +240,23 @@ If you encounter issues:
 ---
 
 **Now you're ready to interact with the NFT Marketplace! Start with Step 1 above.** 🚀
+
+---
+
+## Current Session Status
+
+✅ **Hardhat Node**: Running on http://127.0.0.1:8545
+
+To complete the setup and launch the CLI in your current session:
+
+```bash
+# Terminal 2 (if not already done):
+npx hardhat run scripts/deploy.js --network localhost
+
+# Terminal 3:
+DIAMOND_ADDRESS=0x... node scripts/cli.js
+```
+
+Replace `0x...` with the Diamond address from the deployment output in Terminal 2.
+
+---
