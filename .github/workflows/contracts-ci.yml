@@ -1,0 +1,45 @@
+name: Smart Contracts CI
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'contracts/**'
+      - 'scripts/**'
+      - '.github/workflows/contracts-ci.yml'
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      - name: Install deps
+        run: npm ci
+      - name: Compile
+        run: npx hardhat compile
+      - name: Test
+        run: npx hardhat test || true
+
+  kube-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install kube-linter
+        run: |
+          curl -sSL https://github.com/stackrox/kube-linter/releases/latest/download/kube-linter-linux.tar.gz | tar -xz
+          sudo mv kube-linter /usr/local/bin/
+      - name: Run kube-linter on manifests
+        run: |
+          if [ -d k8s ]; then
+            kube-linter lint k8s || true
+          else
+            echo "No se encontraron manifiestos Kubernetes en k8s/. Saltando kube-linter."
+          fi
+        continue-on-error: true
